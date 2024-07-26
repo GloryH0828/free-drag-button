@@ -1,0 +1,55 @@
+<body>
+    <div class="html">
+        <h1>This is a drag test</h1>
+        <h2>Design by GloryH</h2>
+    </div>
+    <button class="main" id="main" style="left: calc(50vw);top: calc(50vh);">可拖拽</button>
+</body>
+<script>
+    let domX = 0;
+    let domY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let initX = 0;
+    let initY = 0;
+    let xOffset = 0;
+    let yOffset = 0;
+    let element = document.getElementById('main');
+    document.addEventListener('mousemove', (event) => {
+        const leftBtn = event.buttons & 1;
+        if (event.target !== element || !leftBtn) return;
+        currentX = event.clientX - initX;
+        currentY = event.clientY - initY;
+        xOffset = currentX;
+        yOffset = currentY;
+        element.style.transform ='translate3d(' + currentX + 'px, ' + currentY + 'px, 0)';
+    });
+    document.addEventListener('mouseup', (event) => {
+        if (event.target !== element) return;
+        initX = currentX;
+        initY = currentY;
+    });
+    document.addEventListener('mousedown', (event) => {
+        if (event.target !== element) return;
+        initX = event.clientX - xOffset;
+        initY = event.clientY - yOffset;
+    });
+</script>
+<style>
+    .html {
+        width: 100%;
+        text-align: center;
+        h1 {
+            color: #0ff0f0;
+        }
+        h2 {
+            font-family: 'Courier New', Courier, monospace;
+            color: #ff00ff;
+        }
+    }
+    .main {
+        position: absolute;
+        background: skyblue;
+        cursor: pointer;
+    }
+</style>
